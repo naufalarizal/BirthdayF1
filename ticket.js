@@ -82,14 +82,13 @@ if (!isTouch) {
     const cy = rect.top  + rect.height / 2;
     const dx = (e.clientX - cx) / (rect.width  / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
-    const maxTilt = 8;
+    const maxTilt = 6;
     ticket.style.transform =
-      `perspective(1200px) rotateY(${dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg) scale(1.02)`;
+      `perspective(1200px) rotateY(${dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg)`;
     ticket.style.transition = 'transform 0.05s ease';
   });
-
   document.addEventListener('mouseleave', () => {
-    ticket.style.transform = 'perspective(1200px) rotateY(0) rotateX(0) scale(1)';
+    ticket.style.transform = 'none';
     ticket.style.transition = 'transform 0.6s cubic-bezier(0.2,0.8,0.2,1)';
   });
 }

@@ -77,44 +77,51 @@
 
   <div class="scene">
 
-    <!-- TICKET CARD -->
-    <div class="ticket" id="ticket">
+    <!-- TICKET WRAPPER: two separate physical cards -->
+    <div class="ticket-wrapper" id="ticket">
 
-      <!-- ═══ TOP HALF: Race image + title ═══ -->
-      <div class="ticket__top">
-        <img src="assets/ticket_art.jpg" alt="F1 Race" class="ticket__art" />
+      <!-- ══════════════════════════
+           CARD 1 — Top (Image)
+      ══════════════════════════ -->
+      <div class="ticket-card ticket-card--top">
 
-        <!-- Dark gradient overlay -->
-        <div class="ticket__art-overlay"></div>
+        <!-- Race image -->
+        <div class="tc-image-area">
+          <img src="assets/ticket_art.jpg" alt="F1 Race" class="ticket__art" />
+          <div class="ticket__art-overlay"></div>
+          <div class="checkered-corner"></div>
 
-        <!-- Checkered flag corner decoration -->
-        <div class="checkered-corner top-right"></div>
-
-        <!-- Floating logo area -->
-        <div class="ticket__top-content">
-          <div class="ticket__event-label">BIRTHDAY PARTY</div>
-          <div class="ticket__event-name">
-            <span class="name-qeel">Qeel's</span>
-            <span class="name-birthday">BIRTHDAY</span>
+          <!-- Text overlay -->
+          <div class="ticket__top-content">
+            <div class="ticket__event-label">BIRTHDAY PARTY</div>
+            <div class="ticket__event-name">
+              <span class="name-qeel">Qeel's</span>
+              <span class="name-birthday">BIRTHDAY</span>
+            </div>
+            <div class="ticket__tagline">LET'S CELEBRATE A SPECIAL DAY!</div>
           </div>
-          <div class="ticket__tagline">LET'S CELEBRATE A SPECIAL DAY!</div>
         </div>
 
-        <!-- Stub perforation right side -->
+        <!-- Vertical TICKET stub (right column) -->
         <div class="ticket__stub-label">
           <span>T</span><span>I</span><span>C</span><span>K</span><span>E</span><span>T</span>
         </div>
+
+      </div><!-- /.ticket-card--top -->
+
+      <!-- ══════════════════════════
+           NOTCH SEPARATOR ROW
+      ══════════════════════════ -->
+      <div class="ticket-notch-row">
+        <div class="notch-circle notch-left"></div>
+        <div class="perf-dashes"></div>
+        <div class="notch-circle notch-right"></div>
       </div>
 
-      <!-- Perforation tear line -->
-      <div class="ticket__perforation">
-        <div class="perf-circle left"></div>
-        <div class="perf-dots"></div>
-        <div class="perf-circle right"></div>
-      </div>
-
-      <!-- ═══ BOTTOM HALF: Details ═══ -->
-      <div class="ticket__bottom">
+      <!-- ══════════════════════════
+           CARD 2 — Bottom (Details)
+      ══════════════════════════ -->
+      <div class="ticket-card ticket-card--bottom">
 
         <!-- Red header bar -->
         <div class="ticket__header-bar">
@@ -122,7 +129,6 @@
             <div class="header-title">Qeel's</div>
             <div class="header-subtitle">BIRTHDAY PARTY</div>
           </div>
-          <!-- Checkered flag icons -->
           <div class="header-flags">
             <div class="flag-grid">
               <div class="flag-cell black"></div><div class="flag-cell white"></div>
@@ -133,7 +139,6 @@
               <div class="flag-cell white"></div><div class="flag-cell black"></div>
             </div>
           </div>
-          <!-- Trophy icon -->
           <div class="header-trophy">
             <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M30 42 C18 42 12 34 12 24 L12 10 L48 10 L48 24 C48 34 42 42 30 42Z" stroke="#ffb800" stroke-width="2.5" fill="none"/>
@@ -144,28 +149,20 @@
               <path d="M24 22 L28 28 L36 18" stroke="#ffb800" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
-
-          <!-- Barcode stub -->
           <div class="header-barcode">
             <div class="barcode-lines">
-              <div class="bc-line" style="width:2px"></div>
-              <div class="bc-line" style="width:4px"></div>
-              <div class="bc-line" style="width:2px"></div>
-              <div class="bc-line" style="width:3px"></div>
-              <div class="bc-line" style="width:2px"></div>
-              <div class="bc-line" style="width:5px"></div>
-              <div class="bc-line" style="width:2px"></div>
-              <div class="bc-line" style="width:3px"></div>
-              <div class="bc-line" style="width:2px"></div>
-              <div class="bc-line" style="width:4px"></div>
-              <div class="bc-line" style="width:2px"></div>
-              <div class="bc-line" style="width:3px"></div>
+              <div class="bc-line" style="width:2px"></div><div class="bc-line" style="width:4px"></div>
+              <div class="bc-line" style="width:2px"></div><div class="bc-line" style="width:3px"></div>
+              <div class="bc-line" style="width:2px"></div><div class="bc-line" style="width:5px"></div>
+              <div class="bc-line" style="width:2px"></div><div class="bc-line" style="width:3px"></div>
+              <div class="bc-line" style="width:2px"></div><div class="bc-line" style="width:4px"></div>
+              <div class="bc-line" style="width:2px"></div><div class="bc-line" style="width:3px"></div>
             </div>
             <div class="barcode-num">ALL ACCESS PASS</div>
           </div>
         </div>
 
-        <!-- Ticket details row -->
+        <!-- Info details -->
         <div class="ticket__details">
           <button class="detail-block detail-block--clickable" id="mapBtn" onclick="openMapModal()" aria-label="Open server info">
             <div class="detail-label">MAP / VENUE <span class="map-badge">TAP</span></div>
@@ -187,40 +184,29 @@
           <div class="detail-divider"></div>
           <div class="detail-block">
             <div class="detail-label">DRESS CODE</div>
-            <div class="detail-value" style="color:#c8102E; font-size:1rem;">F1 THEME</div>
+            <div class="detail-value" style="color:#c8102E;font-size:1rem;">F1 THEME</div>
             <div class="detail-sub">RACING STYLE</div>
           </div>
         </div>
 
-        <!-- Sector / Row / Seat bar -->
+        <!-- Seat row -->
         <div class="ticket__seat-bar">
-          <div class="seat-item">
-            <span class="seat-label">SECTOR</span>
-            <span class="seat-value">VIP</span>
-          </div>
-          <div class="seat-item">
-            <span class="seat-label">ROW</span>
-            <span class="seat-value">A1</span>
-          </div>
-          <div class="seat-item">
-            <span class="seat-label">SEAT</span>
-            <span class="seat-value">01</span>
-          </div>
-          <div class="seat-item">
-            <span class="seat-label">CLASS</span>
-            <span class="seat-value">PIT PASS</span>
-          </div>
+          <div class="seat-item"><span class="seat-label">SECTOR</span><span class="seat-value">VIP</span></div>
+          <div class="seat-item"><span class="seat-label">ROW</span><span class="seat-value">A1</span></div>
+          <div class="seat-item"><span class="seat-label">SEAT</span><span class="seat-value">01</span></div>
+          <div class="seat-item"><span class="seat-label">CLASS</span><span class="seat-value">PIT PASS</span></div>
         </div>
 
-        <!-- Bottom fine print -->
+        <!-- Footer -->
         <div class="ticket__footer">
           <span class="footer-code">BDAY-2026-QEEL</span>
           <span class="footer-msg">✦ GET READY FOR A NIGHT FULL OF GOOD VIBES, LAUGHTER &amp; UNFORGETTABLE MEMORIES! ✦</span>
           <span class="footer-code">F1-PARTY-SERIES</span>
         </div>
-      </div>
 
-    </div><!-- /.ticket -->
+      </div><!-- /.ticket-card--bottom -->
+
+    </div><!-- /.ticket-wrapper -->
 
     <!-- Floating confetti chips -->
     <div class="confetti-container" id="confetti"></div>
