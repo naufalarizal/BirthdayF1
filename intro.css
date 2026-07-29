@@ -1,0 +1,296 @@
+/* ═══════════════════════════════════════════
+   INTRO OVERLAY — F1 START LIGHTS SEQUENCE
+═══════════════════════════════════════════ */
+
+/* Block ticket from being seen until intro done */
+.scene { visibility: hidden; }
+.scene.intro-done { visibility: visible; }
+
+/* ── Full-screen overlay ── */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #050508;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* exit: slide up */
+  transition: transform 0.7s cubic-bezier(0.7, 0, 0.3, 1),
+              opacity   0.4s ease 0.55s;
+}
+#intro-overlay.exit {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Red & dark stripes (top + bottom) ── */
+.intro-stripe {
+  position: absolute;
+  left: 0; right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    #C8102E 0px, #C8102E 40px,
+    #111    40px, #111    80px
+  );
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.intro-stripe--top    { top: 0; }
+.intro-stripe--bottom { bottom: 0; }
+
+/* ── Checkered panels (left + right) ── */
+.intro-check {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  background-image:
+    repeating-conic-gradient(#1a1a1a 0% 25%, #2e2e2e 0% 50%);
+  background-size: 20px 20px;
+  opacity: 0;
+}
+.intro-check--left  { left: 0;  transform: translateX(-100%); }
+.intro-check--right { right: 0; transform: translateX(100%); }
+
+/* ── Center content ── */
+.intro-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── GANTRY structure ── */
+.intro-gantry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+.gantry-bar {
+  width: 380px;
+  height: 18px;
+  background: linear-gradient(to bottom, #444, #222, #444);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  border: 1px solid #555;
+}
+.gantry-leg {
+  position: absolute;
+  bottom: -30px;
+  width: 12px;
+  height: 32px;
+  background: linear-gradient(to right, #555, #333);
+  border-radius: 0 0 3px 3px;
+}
+.gantry-leg--left  { left:  40px; }
+.gantry-leg--right { right: 40px; }
+
+/* ── Lights row ── */
+.lights-row {
+  display: flex;
+  gap: 18px;
+  margin-top: 2px;
+  padding-top: 8px;
+}
+
+.light-pod {
+  width: 64px;
+  height: 64px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  border: 2px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  position: relative;
+  /* entry animation — drop from gantry */
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.light-bulb {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #330000, #0a0000);
+  border: 2px solid #2a2a2a;
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,0.05),
+    0 0 0 3px #111;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Light ON state */
+.light-pod.on .light-bulb {
+  background: radial-gradient(circle at 35% 35%, #ff6666, #C8102E 40%, #7a0000);
+  box-shadow:
+    0 0 16px 4px rgba(200, 16, 46, 0.9),
+    0 0 40px 10px rgba(200, 16, 46, 0.5),
+    0 0 80px 20px rgba(200, 16, 46, 0.2),
+    inset 0 2px 6px rgba(255, 180, 180, 0.4);
+  border-color: #ff4444;
+}
+
+/* ── "LIGHTS OUT!" text ── */
+.intro-go {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: #fff;
+  letter-spacing: 6px;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.6);
+  text-shadow:
+    0 0 30px rgba(255,255,255,0.4),
+    2px 2px 0 #C8102E;
+  line-height: 1;
+}
+.intro-go.show {
+  animation: goFlash 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes goFlash {
+  0%   { opacity: 0; transform: scale(0.5); }
+  40%  { opacity: 1; transform: scale(1.15); }
+  70%  { transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* "AND AWAY WE GO" */
+.intro-sub {
+  font-family: 'Source Code Pro', monospace;
+  font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.intro-sub.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Title teaser ── */
+.intro-title-tease {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.intro-title-tease.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tease-line {
+  font-family: 'Dancing Script', cursive, 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: #fff;
+  font-style: italic;
+}
+.tease-bday {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 7vw, 4rem);
+  color: #C8102E;
+  letter-spacing: 4px;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(200,16,46,0.6);
+}
+.tease-date {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 6px;
+  margin-top: 4px;
+}
+
+/* ── Green GO flash ── */
+.green-flash {
+  position: absolute;
+  inset: 0;
+  background: #00C853;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+.green-flash.flash {
+  animation: greenPop 0.5s ease forwards;
+}
+@keyframes greenPop {
+  0%   { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+
+/* ── Speed lines (exit swoosh) ── */
+.speed-lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+}
+.sl {
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.speed-lines.go .sl {
+  animation: speedLine 0.4s ease forwards;
+}
+.speed-lines.go .sl:nth-child(1)  { animation-delay: 0.00s; width: 80%; margin-left: 10%; }
+.speed-lines.go .sl:nth-child(2)  { animation-delay: 0.03s; width: 60%; margin-left: 20%; }
+.speed-lines.go .sl:nth-child(3)  { animation-delay: 0.06s; width: 90%; margin-left: 5%;  }
+.speed-lines.go .sl:nth-child(4)  { animation-delay: 0.02s; width: 70%; margin-left: 15%; }
+.speed-lines.go .sl:nth-child(5)  { animation-delay: 0.05s; width: 50%; margin-left: 25%; }
+.speed-lines.go .sl:nth-child(6)  { animation-delay: 0.01s; width: 85%; margin-left: 8%;  }
+.speed-lines.go .sl:nth-child(7)  { animation-delay: 0.04s; width: 65%; margin-left: 18%; }
+.speed-lines.go .sl:nth-child(8)  { animation-delay: 0.07s; width: 75%; margin-left: 12%; }
+.speed-lines.go .sl:nth-child(9)  { animation-delay: 0.02s; width: 55%; margin-left: 22%; }
+.speed-lines.go .sl:nth-child(10) { animation-delay: 0.06s; width: 95%; margin-left: 2%;  }
+.speed-lines.go .sl:nth-child(11) { animation-delay: 0.03s; width: 40%; margin-left: 30%; }
+.speed-lines.go .sl:nth-child(12) { animation-delay: 0.05s; width: 88%; margin-left: 6%;  }
+
+@keyframes speedLine {
+  0%   { transform: scaleX(0); opacity: 1; }
+  60%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* ── Track ground flash ── */
+#intro-overlay.track-flash {
+  animation: trackFlash 0.15s ease;
+}
+@keyframes trackFlash {
+  0%, 100% { background: #050508; }
+  50%       { background: #1a1a2e; }
+}
+
+/* ── Mobile tweaks ── */
+@media (max-width: 500px) {
+  .gantry-bar     { width: 280px; }
+  .light-pod      { width: 46px; height: 46px; }
+  .light-bulb     { width: 30px; height: 30px; }
+  .lights-row     { gap: 12px; }
+  .gantry-leg--left  { left:  25px; }
+  .gantry-leg--right { right: 25px; }
+}

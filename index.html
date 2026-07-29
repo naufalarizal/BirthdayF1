@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qeel's Birthday – F1 Ticket</title>
+  <meta name="description" content="You are invited to Qeel's Birthday Party! F1 theme, 30 July 2026, 08.00 PM WIB.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ticket.css">
+  <link rel="stylesheet" href="intro.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       F1 INTRO SEQUENCE OVERLAY
+  ════════════════════════════════════ -->
+  <div id="intro-overlay">
+
+    <!-- Top & bottom speed lines wipe in -->
+    <div class="intro-stripe intro-stripe--top"></div>
+    <div class="intro-stripe intro-stripe--bottom"></div>
+
+    <!-- Checkered flag side panels -->
+    <div class="intro-check intro-check--left"></div>
+    <div class="intro-check intro-check--right"></div>
+
+    <!-- Center content -->
+    <div class="intro-center">
+
+      <!-- F1 gantry bar (holds the lights) -->
+      <div class="intro-gantry">
+        <div class="gantry-bar">
+          <div class="gantry-leg gantry-leg--left"></div>
+          <div class="gantry-leg gantry-leg--right"></div>
+        </div>
+        <!-- 5 start lights -->
+        <div class="lights-row" id="lightsRow">
+          <div class="light-pod" id="l1"><div class="light-bulb"></div></div>
+          <div class="light-pod" id="l2"><div class="light-bulb"></div></div>
+          <div class="light-pod" id="l3"><div class="light-bulb"></div></div>
+          <div class="light-pod" id="l4"><div class="light-bulb"></div></div>
+          <div class="light-pod" id="l5"><div class="light-bulb"></div></div>
+        </div>
+      </div>
+
+      <!-- GO! flash text -->
+      <div class="intro-go" id="introGo">LIGHTS OUT!</div>
+
+      <!-- Sub-text -->
+      <div class="intro-sub" id="introSub">AND AWAY WE GO 🏁</div>
+
+      <!-- Event title teaser -->
+      <div class="intro-title-tease" id="introTease">
+        <span class="tease-line">Qeel's</span>
+        <span class="tease-bday">BIRTHDAY PARTY</span>
+        <span class="tease-date">30 · JUL · 2026</span>
+      </div>
+
+    </div><!-- /.intro-center -->
+
+    <!-- Green flash overlay -->
+    <div class="green-flash" id="greenFlash"></div>
+
+    <!-- Speed lines swoosh -->
+    <div class="speed-lines" id="speedLines">
+      <div class="sl"></div><div class="sl"></div><div class="sl"></div>
+      <div class="sl"></div><div class="sl"></div><div class="sl"></div>
+      <div class="sl"></div><div class="sl"></div><div class="sl"></div>
+      <div class="sl"></div><div class="sl"></div><div class="sl"></div>
+    </div>
+
+  </div><!-- /#intro-overlay -->
+
+  <!-- Animated BG sparks -->
+  <canvas id="sparks"></canvas>
+
+  <div class="scene">
+
+    <!-- TICKET CARD -->
+    <div class="ticket" id="ticket">
+
+      <!-- ═══ TOP HALF: Race image + title ═══ -->
+      <div class="ticket__top">
+        <img src="assets/ticket_art.jpg" alt="F1 Race" class="ticket__art" />
+
+        <!-- Dark gradient overlay -->
+        <div class="ticket__art-overlay"></div>
+
+        <!-- Checkered flag corner decoration -->
+        <div class="checkered-corner top-right"></div>
+
+        <!-- Floating logo area -->
+        <div class="ticket__top-content">
+          <div class="ticket__event-label">BIRTHDAY PARTY</div>
+          <div class="ticket__event-name">
+            <span class="name-qeel">Qeel's</span>
+            <span class="name-birthday">BIRTHDAY</span>
+          </div>
+          <div class="ticket__tagline">LET'S CELEBRATE A SPECIAL DAY!</div>
+        </div>
+
+        <!-- Stub perforation right side -->
+        <div class="ticket__stub-label">
+          <span>T</span><span>I</span><span>C</span><span>K</span><span>E</span><span>T</span>
+        </div>
+      </div>
+
+      <!-- Perforation tear line -->
+      <div class="ticket__perforation">
+        <div class="perf-circle left"></div>
+        <div class="perf-dots"></div>
+        <div class="perf-circle right"></div>
+      </div>
+
+      <!-- ═══ BOTTOM HALF: Details ═══ -->
+      <div class="ticket__bottom">
+
+        <!-- Red header bar -->
+        <div class="ticket__header-bar">
+          <div class="header-left">
+            <div class="header-title">Qeel's</div>
+            <div class="header-subtitle">BIRTHDAY PARTY</div>
+          </div>
+          <!-- Checkered flag icons -->
+          <div class="header-flags">
+            <div class="flag-grid">
+              <div class="flag-cell black"></div><div class="flag-cell white"></div>
+              <div class="flag-cell white"></div><div class="flag-cell black"></div>
+              <div class="flag-cell black"></div><div class="flag-cell white"></div>
+              <div class="flag-cell white"></div><div class="flag-cell black"></div>
+              <div class="flag-cell black"></div><div class="flag-cell white"></div>
+              <div class="flag-cell white"></div><div class="flag-cell black"></div>
+            </div>
+          </div>
+          <!-- Trophy icon -->
+          <div class="header-trophy">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30 42 C18 42 12 34 12 24 L12 10 L48 10 L48 24 C48 34 42 42 30 42Z" stroke="#ffb800" stroke-width="2.5" fill="none"/>
+              <path d="M12 14 C8 14 4 17 4 22 C4 27 8 30 12 30" stroke="#ffb800" stroke-width="2.5" fill="none"/>
+              <path d="M48 14 C52 14 56 17 56 22 C56 27 52 30 48 30" stroke="#ffb800" stroke-width="2.5" fill="none"/>
+              <line x1="30" y1="42" x2="30" y2="50" stroke="#ffb800" stroke-width="2.5"/>
+              <line x1="20" y1="50" x2="40" y2="50" stroke="#ffb800" stroke-width="2.5"/>
+              <path d="M24 22 L28 28 L36 18" stroke="#ffb800" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- Barcode stub -->
+          <div class="header-barcode">
+            <div class="barcode-lines">
+              <div class="bc-line" style="width:2px"></div>
+              <div class="bc-line" style="width:4px"></div>
+              <div class="bc-line" style="width:2px"></div>
+              <div class="bc-line" style="width:3px"></div>
+              <div class="bc-line" style="width:2px"></div>
+              <div class="bc-line" style="width:5px"></div>
+              <div class="bc-line" style="width:2px"></div>
+              <div class="bc-line" style="width:3px"></div>
+              <div class="bc-line" style="width:2px"></div>
+              <div class="bc-line" style="width:4px"></div>
+              <div class="bc-line" style="width:2px"></div>
+              <div class="bc-line" style="width:3px"></div>
+            </div>
+            <div class="barcode-num">ALL ACCESS PASS</div>
+          </div>
+        </div>
+
+        <!-- Ticket details row -->
+        <div class="ticket__details">
+          <button class="detail-block detail-block--clickable" id="mapBtn" onclick="openMapModal()" aria-label="Open server info">
+            <div class="detail-label">MAP / VENUE <span class="map-badge">TAP</span></div>
+            <div class="detail-value">INDOVOICE</div>
+            <div class="detail-sub">(PRIVATE SERVER)</div>
+            <div class="map-pulse-ring"></div>
+          </button>
+          <div class="detail-divider"></div>
+          <div class="detail-block">
+            <div class="detail-label">DATE</div>
+            <div class="detail-value">30 JUL 2026</div>
+          </div>
+          <div class="detail-divider"></div>
+          <div class="detail-block">
+            <div class="detail-label">TIME</div>
+            <div class="detail-value">08:00 PM</div>
+            <div class="detail-sub">WIB</div>
+          </div>
+          <div class="detail-divider"></div>
+          <div class="detail-block">
+            <div class="detail-label">DRESS CODE</div>
+            <div class="detail-value" style="color:#c8102E; font-size:1rem;">F1 THEME</div>
+            <div class="detail-sub">RACING STYLE</div>
+          </div>
+        </div>
+
+        <!-- Sector / Row / Seat bar -->
+        <div class="ticket__seat-bar">
+          <div class="seat-item">
+            <span class="seat-label">SECTOR</span>
+            <span class="seat-value">VIP</span>
+          </div>
+          <div class="seat-item">
+            <span class="seat-label">ROW</span>
+            <span class="seat-value">A1</span>
+          </div>
+          <div class="seat-item">
+            <span class="seat-label">SEAT</span>
+            <span class="seat-value">01</span>
+          </div>
+          <div class="seat-item">
+            <span class="seat-label">CLASS</span>
+            <span class="seat-value">PIT PASS</span>
+          </div>
+        </div>
+
+        <!-- Bottom fine print -->
+        <div class="ticket__footer">
+          <span class="footer-code">BDAY-2026-QEEL</span>
+          <span class="footer-msg">✦ GET READY FOR A NIGHT FULL OF GOOD VIBES, LAUGHTER &amp; UNFORGETTABLE MEMORIES! ✦</span>
+          <span class="footer-code">F1-PARTY-SERIES</span>
+        </div>
+      </div>
+
+    </div><!-- /.ticket -->
+
+    <!-- Floating confetti chips -->
+    <div class="confetti-container" id="confetti"></div>
+
+  </div><!-- /.scene -->
+
+  <!-- ═══ SERVER INFO MODAL ═══ -->
+  <div class="modal-overlay" id="mapModal" onclick="closeMapModal(event)" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <!-- Close button -->
+      <button class="modal-close" onclick="closeMapModal()" aria-label="Close">&times;</button>
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="modal-flag-strip">
+          <div class="mf-cell b"></div><div class="mf-cell w"></div><div class="mf-cell b"></div><div class="mf-cell w"></div>
+          <div class="mf-cell w"></div><div class="mf-cell b"></div><div class="mf-cell w"></div><div class="mf-cell b"></div>
+        </div>
+        <div class="modal-header-text">
+          <p class="modal-eyebrow">📍 RACE VENUE</p>
+          <h2 id="modal-title" class="modal-title">INDOVOICE</h2>
+          <p class="modal-subtitle">PRIVATE SERVER · ROBLOX</p>
+        </div>
+        <div class="modal-flag-strip">
+          <div class="mf-cell b"></div><div class="mf-cell w"></div><div class="mf-cell b"></div><div class="mf-cell w"></div>
+          <div class="mf-cell w"></div><div class="mf-cell b"></div><div class="mf-cell w"></div><div class="mf-cell b"></div>
+        </div>
+      </div>
+
+      <!-- Info rows -->
+      <div class="modal-info-grid">
+        <div class="modal-info-row">
+          <span class="minfo-icon">🎮</span>
+          <div class="minfo-text">
+            <span class="minfo-label">PLATFORM</span>
+            <span class="minfo-val">Roblox</span>
+          </div>
+        </div>
+        <div class="modal-info-row">
+          <span class="minfo-icon">🔒</span>
+          <div class="minfo-text">
+            <span class="minfo-label">SERVER TYPE</span>
+            <span class="minfo-val">Private Server (Invite Only)</span>
+          </div>
+        </div>
+        <div class="modal-info-row">
+          <span class="minfo-icon">📅</span>
+          <div class="minfo-text">
+            <span class="minfo-label">DATE &amp; TIME</span>
+            <span class="minfo-val">30 Juli 2026 · 08:00 PM WIB</span>
+          </div>
+        </div>
+        <div class="modal-info-row">
+          <span class="minfo-icon">👗</span>
+          <div class="minfo-text">
+            <span class="minfo-label">DRESS CODE</span>
+            <span class="minfo-val">F1 Theme / Racing Style</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="modal-note">
+        <span class="modal-note-icon">⚠️</span>
+        <p>Link ini khusus untuk tamu undangan. Harap tidak disebarluaskan tanpa izin. Pastikan kamu sudah siap dengan outfit F1-mu sebelum join!</p>
+      </div>
+
+      <!-- CTA Button -->
+      <a href="https://www.roblox.com/share?code=fcb9920d89070e498d787b3b580f342f&type=Server"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="modal-join-btn"
+         id="joinBtn">
+        <span class="join-btn-flag">🏁</span>
+        <span>JOIN SERVER SEKARANG</span>
+        <span class="join-btn-arrow">→</span>
+      </a>
+
+      <p class="modal-copy-hint" id="copyHint">Atau klik <button onclick="copyLink()" class="copy-inline-btn">salin link</button> untuk dibagikan ke teman.</p>
+    </div>
+  </div>
+
+  <script src="intro.js"></script>
+  <script src="ticket.js"></script>
+</body>
+</html>
