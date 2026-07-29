@@ -285,12 +285,78 @@
   50%       { background: #1a1a2e; }
 }
 
-/* ── Mobile tweaks ── */
-@media (max-width: 500px) {
-  .gantry-bar     { width: 280px; }
-  .light-pod      { width: 46px; height: 46px; }
-  .light-bulb     { width: 30px; height: 30px; }
-  .lights-row     { gap: 12px; }
-  .gantry-leg--left  { left:  25px; }
-  .gantry-leg--right { right: 25px; }
+/* ── Responsive intro — all phones ── */
+
+/* Base mobile (< 768px) */
+@media (max-width: 768px) {
+  .intro-center { gap: 20px; padding: 0 12px; }
+
+  .gantry-bar {
+    width: min(320px, 85vw);
+  }
+  .gantry-leg--left  { left:  max(20px, 5%); }
+  .gantry-leg--right { right: max(20px, 5%); }
+
+  .light-pod  { width: 52px; height: 52px; }
+  .light-bulb { width: 34px; height: 34px; }
+  .lights-row { gap: 14px; }
+
+  .intro-go   { font-size: clamp(2.5rem, 12vw, 5rem); letter-spacing: 4px; }
+  .intro-sub  { font-size: clamp(0.65rem, 3vw, 0.9rem); letter-spacing: 3px; }
+  .tease-line { font-size: clamp(1.2rem, 5vw, 2rem); }
+  .tease-bday { font-size: clamp(1.8rem, 8vw, 3rem); letter-spacing: 3px; }
+  .tease-date { font-size: 0.65rem; letter-spacing: 4px; }
+
+  /* Narrower side panels on mobile */
+  .intro-check { width: 40px; }
 }
+
+/* XS — 320px iPhone SE */
+@media (max-width: 380px) {
+  .intro-center { gap: 16px; }
+
+  .gantry-bar { width: min(260px, 88vw); height: 14px; }
+  .light-pod  { width: 42px; height: 42px; border-radius: 8px; }
+  .light-bulb { width: 28px; height: 28px; }
+  .lights-row { gap: 10px; }
+
+  .intro-go   { font-size: 2.2rem; letter-spacing: 3px; }
+  .intro-sub  { font-size: 0.6rem; letter-spacing: 2px; }
+  .tease-bday { font-size: 1.6rem; letter-spacing: 2px; }
+
+  /* Hide side check panels to save horizontal space */
+  .intro-check { display: none; }
+  .intro-stripe { height: 8px; }
+}
+
+/* Landscape phones */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .intro-center {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 32px;
+  }
+  .intro-gantry { order: 0; }
+  .intro-go     { order: 1; font-size: 2rem; }
+  .intro-sub    { order: 2; }
+  .intro-title-tease { order: 3; }
+
+  .gantry-bar { width: 200px; }
+  .light-pod  { width: 38px; height: 38px; }
+  .light-bulb { width: 24px; height: 24px; }
+  .lights-row { gap: 8px; }
+  .tease-bday { font-size: 1.4rem; }
+  .tease-line { font-size: 1rem; }
+  .tease-date { font-size: 0.55rem; }
+}
+
+/* iOS safe areas */
+@supports (padding: max(0px)) {
+  #intro-overlay {
+    padding-left:   max(0px, env(safe-area-inset-left));
+    padding-right:  max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+

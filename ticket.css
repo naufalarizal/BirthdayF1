@@ -492,19 +492,240 @@ body {
   }
 }
 
-/* ═══════════════════════════════
-   RESPONSIVE
-═══════════════════════════════ */
-@media (max-width: 600px) {
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Mobile-first, all Android & iOS devices
+   Breakpoints:
+     xs  : 320px  (iPhone SE, small Android)
+     sm  : 375px  (iPhone 13 mini, standard Android)
+     md  : 414px  (iPhone Plus, large Android)
+     lg  : 600px  (small tablets, landscape phones)
+     xl  : 768px  (iPad, Android tablets)
+═══════════════════════════════════════════════════════ */
+
+/* ── Base mobile tweaks (applies to ALL phones < 768px) ── */
+@media (max-width: 768px) {
+  /* Prevent horizontal overflow on any phone */
+  html, body { overflow-x: hidden; }
+
+  /* Scene: remove padding so ticket fills width */
+  .scene {
+    padding: 1rem 0;
+    align-items: flex-start;
+    min-height: 100dvh; /* dynamic viewport for iOS Safari */
+  }
+
+  /* Ticket: full-width, no border-radius on sides */
+  .ticket {
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .ticket:hover { transform: none; } /* disable 3D tilt on touch */
+
+  /* TOP HALF */
   .ticket__top { height: 220px; }
-  .name-birthday { font-size: 2.5rem; }
-  .name-qeel { font-size: 2rem; }
-  .ticket__stub-label { width: 48px; font-size: 1.1rem; }
-  .ticket__bottom { padding-right: 48px; }
-  .ticket__details { padding: 14px 16px; }
-  .ticket__seat-bar { gap: 16px; padding: 10px 16px; flex-wrap: wrap; }
+  .ticket__top-content { left: 16px; bottom: 16px; right: 72px; }
+
+  /* Stub narrower on mobile */
+  .ticket__stub-label { width: 52px; font-size: 1.2rem; gap: 3px; }
+  .ticket__stub-label::before,
+  .ticket__stub-label::after { width: 14px; height: 14px; }
+
+  /* Bottom: clear stub */
+  .ticket__bottom { padding-right: 52px; }
+
+  /* Header bar: stack on small screens */
+  .ticket__header-bar {
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .header-title    { font-size: 1.2rem; }
+  .header-subtitle { font-size: 0.7rem; }
   .header-trophy svg { width: 36px; height: 36px; }
+  .header-barcode { display: none; } /* hide barcode on small screens */
+  .flag-grid {
+    grid-template-columns: repeat(4, 10px);
+    grid-template-rows: repeat(3, 10px);
+  }
+  .flag-cell { width: 10px; height: 10px; }
+
+  /* DETAILS: wrap into 2 columns */
+  .ticket__details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 14px 14px;
+    gap: 12px 0;
+  }
+  .detail-divider { display: none; } /* hide vertical dividers */
+  .detail-block { padding: 0 8px; min-width: unset; }
+  .detail-block:first-child { padding-left: 0; }
+  .detail-value { font-size: 1.1rem; }
+
+  /* SEAT BAR */
+  .ticket__seat-bar {
+    padding: 10px 14px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .seat-value { font-size: 0.75rem; padding: 2px 8px; }
+
+  /* FOOTER */
+  .ticket__footer {
+    padding: 8px 14px 12px;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-code { display: none; }
+
+  /* Countdown */
+  #countdown-display {
+    padding: 8px 14px !important;
+    gap: 14px !important;
+    flex-wrap: wrap;
+  }
 }
+
+/* ── XS: 320px — iPhone SE, tiny Androids ── */
+@media (max-width: 380px) {
+  .ticket__top { height: 180px; }
+
+  .name-qeel    { font-size: 1.6rem; }
+  .name-birthday { font-size: 2.4rem; letter-spacing: 2px; }
+  .ticket__tagline { font-size: 0.55rem; letter-spacing: 1px; }
+  .ticket__event-label { font-size: 0.6rem; letter-spacing: 2px; }
+
+  .ticket__stub-label { width: 44px; font-size: 1rem; letter-spacing: 3px; }
+  .ticket__bottom { padding-right: 44px; }
+  .ticket__top-content { left: 12px; bottom: 12px; right: 56px; }
+
+  .ticket__header-bar { padding: 8px 10px; gap: 8px; }
+  .header-title    { font-size: 1rem; }
+  .header-subtitle { font-size: 0.6rem; }
+  .header-flags    { display: none; }
+
+  .ticket__details { padding: 10px 10px; gap: 10px 0; }
+  .detail-block { padding: 0 6px; }
+  .detail-value { font-size: 1rem; }
+  .detail-label { font-size: 0.55rem; }
+  .detail-sub   { font-size: 0.55rem; }
+
+  .ticket__seat-bar { padding: 8px 10px; gap: 8px; }
+  .seat-label { font-size: 0.45rem; }
+  .seat-value { font-size: 0.7rem; padding: 2px 6px; }
+
+  .perf-dots { margin: 0 auto; width: calc(100% - 52px); }
+
+  .detail-block--clickable { padding: 0 6px; }
+}
+
+/* ── SM: Standard phones 375-413px (iPhone 13, Pixel) ── */
+@media (min-width: 381px) and (max-width: 413px) {
+  .ticket__top { height: 200px; }
+  .name-qeel     { font-size: 1.9rem; }
+  .name-birthday { font-size: 2.8rem; }
+
+  .ticket__details { padding: 12px 12px; }
+  .detail-value { font-size: 1.1rem; }
+}
+
+/* ── MD: Large phones 414-599px (iPhone Plus, Pro Max) ── */
+@media (min-width: 414px) and (max-width: 599px) {
+  .ticket__top { height: 210px; }
+  .name-qeel     { font-size: 2rem; }
+  .name-birthday { font-size: 3rem; }
+
+  .ticket__details { padding: 14px 14px; }
+  .detail-value { font-size: 1.15rem; }
+}
+
+/* ── LG: Landscape phones / small tablets 600-767px ── */
+@media (min-width: 600px) and (max-width: 767px) {
+  .scene { padding: 1.5rem; }
+  .ticket { border-radius: 12px; max-width: 100%; }
+
+  .ticket__top { height: 240px; }
+  .name-qeel     { font-size: 2.2rem; }
+  .name-birthday { font-size: 3.2rem; }
+
+  /* Details: keep 4 columns but tighter */
+  .ticket__details {
+    display: flex;
+    padding: 14px 18px;
+    gap: 0;
+  }
+  .detail-divider { display: block; }
+  .detail-block { padding: 0 10px; }
+  .detail-value { font-size: 1.1rem; }
+
+  .header-barcode { display: flex; }
+}
+
+/* ── XL: Tablets 768px (iPad, Galaxy Tab) ── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .scene { padding: 2rem; }
+  .ticket { max-width: 720px; border-radius: 14px; }
+
+  .ticket__top { height: 280px; }
+  .name-qeel     { font-size: 2.3rem; }
+  .name-birthday { font-size: 3.2rem; }
+
+  .ticket__details { padding: 16px 20px; }
+  .detail-value { font-size: 1.2rem; }
+  .ticket__header-bar { padding: 12px 20px; }
+}
+
+/* ── Landscape orientation on phones ── */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .scene {
+    padding: 0.5rem 1rem;
+    align-items: center;
+    min-height: 100dvh;
+  }
+  .ticket { border-radius: 10px; max-width: 680px; }
+  .ticket__top { height: 160px; }
+  .name-qeel     { font-size: 1.5rem; }
+  .name-birthday { font-size: 2.2rem; letter-spacing: 2px; }
+  .ticket__top-content { bottom: 10px; left: 14px; right: 64px; }
+  .ticket__event-label { display: none; } /* save space */
+  .ticket__tagline     { display: none; }
+
+  /* Details: back to row layout in landscape */
+  .ticket__details {
+    display: flex !important;
+    grid-template-columns: unset;
+    padding: 10px 16px;
+  }
+  .detail-divider { display: block !important; }
+  .detail-block { padding: 0 10px; }
+  .detail-value { font-size: 0.95rem; }
+
+  .ticket__seat-bar { padding: 8px 16px; gap: 16px; }
+  #countdown-display { padding: 6px 16px !important; }
+}
+
+/* ── iOS Safari safe area support ── */
+@supports (padding: max(0px)) {
+  .scene {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left:   max(0px,  env(safe-area-inset-left));
+    padding-right:  max(0px,  env(safe-area-inset-right));
+  }
+  .modal-card {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Touch devices: remove hover effects that don't work on touch ── */
+@media (hover: none) and (pointer: coarse) {
+  .ticket__art    { transition: none; }
+  .ticket:hover   { transform: none; box-shadow: var(--shadow); }
+  .modal-join-btn:hover { transform: none; }
+  .dc-icon-wrapper:hover { transform: none; }
+}
+
 
 /* ═══════════════════════════════
    CLICKABLE MAP BLOCK
@@ -775,3 +996,79 @@ body {
 }
 .copy-inline-btn:hover { color: var(--dark-red); }
 
+/* ═══════════════════════════════════════════
+   MODAL RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end; /* slide up from bottom on mobile */
+  }
+
+  .modal-card {
+    border-radius: 20px 20px 0 0; /* bottom sheet style */
+    max-width: 100%;
+    width: 100%;
+    max-height: 92dvh;
+    overflow-y: auto;
+    transform: translateY(60px) scale(1); /* slide in from bottom */
+  }
+  .modal-overlay.open .modal-card {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Drag handle for bottom sheet feel */
+  .modal-card::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 2px;
+    margin: 10px auto 0;
+  }
+
+  .modal-header { padding: 14px 16px 12px; gap: 10px; }
+  .modal-title  { font-size: 1.6rem; }
+  .modal-eyebrow { font-size: 0.55rem; }
+  .modal-subtitle { font-size: 0.5rem; }
+
+  .modal-flag-strip {
+    grid-template-columns: repeat(4, 10px);
+    grid-template-rows: repeat(2, 10px);
+  }
+  .mf-cell { width: 10px; height: 10px; }
+
+  .modal-info-grid { padding: 14px 16px 8px; gap: 10px; }
+  .modal-info-row  { padding-bottom: 10px; gap: 10px; }
+  .minfo-icon { font-size: 1.1rem; }
+  .minfo-val  { font-size: 0.85rem; }
+  .minfo-label { font-size: 0.5rem; }
+
+  .modal-note { margin: 0 16px 16px; padding: 8px 12px; }
+  .modal-note p { font-size: 0.7rem; }
+
+  .modal-join-btn {
+    margin: 0 16px 12px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+  }
+
+  .modal-copy-hint { font-size: 0.55rem; padding-bottom: 12px; }
+
+  /* iOS safe area bottom padding */
+  .modal-card {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+@media (max-width: 380px) {
+  .modal-title  { font-size: 1.3rem; letter-spacing: 2px; }
+  .modal-header { padding: 12px 12px 10px; gap: 6px; }
+  .modal-flag-strip { display: none; }
+
+  .modal-info-grid { padding: 12px 12px 6px; }
+  .modal-note  { margin: 0 12px 12px; }
+  .modal-join-btn { margin: 0 12px 10px; font-size: 0.9rem; padding: 10px 16px; }
+}
